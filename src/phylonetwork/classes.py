@@ -2,11 +2,15 @@
 # -*- coding: utf-8 -*-
 
 from networkx import DiGraph, is_directed_acyclic_graph, dfs_successors
-from networkx import single_source_shortest_path_length,all_pairs_shortest_path_length,dijkstra_path_length
-from networkx import pydot_layout, draw_networkx
+from networkx import single_source_shortest_path_length
+from networkx import all_pairs_shortest_path_length
+from networkx import dijkstra_path_length
+
 import networkx as nx
 
-import numpy,pyparsing,copy
+import numpy
+import pyparsing
+import copy
 
 from .eNewick import eNewickParser
 from .utils import total_cmp

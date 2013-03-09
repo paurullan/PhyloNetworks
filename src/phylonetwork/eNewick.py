@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from pyparsing import Combine, Optional, Literal, CaselessLiteral,
+from pyparsing import Combine, Optional, Literal, CaselessLiteral
 from pyparsing import Word, alphanums, alphas, alphas8bit, nums, oneOf
 from pyparsing import Group, Dict, Forward, ParseResults, CharsNotIn, ZeroOrMore
 
