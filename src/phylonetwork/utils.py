@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from random import randint
 
 def total_cmp(x,y):
@@ -14,8 +17,9 @@ def total_cmp(x,y):
         if x[i]>y[i]: return 1
     return 0
 
+
 def random_weighted(d):
-    """Given ``d`` a dictionary, returns a key in it with probability equals to its value 
+    """Given ``d`` a dictionary, returns a key in it with probability equals to its value
     (normalized over the sum of all values)
     """
     sum_of_values = sum(d.values())
@@ -24,4 +28,3 @@ def random_weighted(d):
         if r < d[item]:
             return item
         r = r-d[item]
-        

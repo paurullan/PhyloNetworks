@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import copy
 
 class Permutation():
@@ -7,7 +10,7 @@ class Permutation():
 
 	def __init__(self,mapping=None,ordering=None):
 		self.mapping={}
-		
+
 		if not ordering==None:
 			keys=ordering[:]
 			keys.sort()
@@ -16,19 +19,19 @@ class Permutation():
 
 		if not mapping==None:
 			self.mapping=copy.copy(mapping)
-			
+
 	def __str__(self):
 		return str(self.mapping)
-			
+
 	def __getitem__(self,key):
 		try:
 			return self.mapping[key]
 		except:
 			return key
-			
+
 	def __setitem__(self,key,value):
 		self.mapping[key]=value
-			
+
 	def __mul__(self,perm2):
 		result=Permutation()
 		keys=set(perm2.mapping.keys())
@@ -45,7 +48,7 @@ class Permutation():
 		for key in self.mapping:
 			result[self[key]]=key
 		return result
-				
+
 	def __pow__(self,n):
 		if n<0:
 			inv=self.inverse()
@@ -64,7 +67,7 @@ class Permutation():
 	def identity(self,keys):
 		for key in keys:
 			self[key]=key
-		
+
 	def cycles(self):
 		keys=set(self.mapping.keys())
 		cyclesfound=[]

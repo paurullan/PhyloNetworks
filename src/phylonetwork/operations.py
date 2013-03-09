@@ -1,8 +1,11 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import copy
 
 def push_and_hang(net,u,newtaxa):
     """
-    Builds a new Phylogenetic Tree from net and u by hanging a leaf labeled newtaxa 
+    Builds a new Phylogenetic Tree from net and u by hanging a leaf labeled newtaxa
     between u and its parent.
        |          |
        |    =>    |\
@@ -25,7 +28,7 @@ def push_and_hang(net,u,newtaxa):
 
 def hold_and_hang(net,u,newtaxa):
     """
-    Builds a new Phylogenetic Tree from net and u by hanging a leaf labeled newtaxa 
+    Builds a new Phylogenetic Tree from net and u by hanging a leaf labeled newtaxa
     from u
        |    =>    |
        u          u

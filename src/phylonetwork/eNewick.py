@@ -1,13 +1,15 @@
-from pyparsing import Combine, Optional, Literal, CaselessLiteral, \
-    Word, alphanums, alphas, alphas8bit, \
-    nums, oneOf, Group, Dict, Forward, \
-    ParseResults, CharsNotIn, ZeroOrMore
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from pyparsing import Combine, Optional, Literal, CaselessLiteral,
+from pyparsing import Word, alphanums, alphas, alphas8bit, nums, oneOf
+from pyparsing import Group, Dict, Forward, ParseResults, CharsNotIn, ZeroOrMore
 
 cvtInt = lambda s,l,toks: int(toks[0])
 cvtReal = lambda s,l,toks: float(toks[0])
 
 def makeeNewickParser():
-    # atoms    
+    # atoms
     lparen    = Literal("(").suppress()
     rparen    = Literal(")").suppress()
     colon     = Literal(":").suppress()
@@ -21,7 +23,7 @@ def makeeNewickParser():
     name    = Word(alphanums + alphas8bit + "_" + "-" + "." + "+" + "&" + "/" + "~" + "{" + "}" + "*" + "'" + '"' + '\\' + '?')
     string  = Word(alphas)
     fnumber = Combine(
-        Word("+-"+nums, nums) + 
+        Word("+-"+nums, nums) +
         Optional(point + Optional(Word(nums))) +
         Optional(e + Word("+-"+nums, nums))
         ).setParseAction(cvtReal)

@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import functools
 
 class memoize_method(object):
@@ -10,7 +13,7 @@ class memoize_method(object):
     def __init__(self, func):
         #print "Init"
         self.func = func
-        
+
     def __call__(self, *args):
         #print "Call"
         if not self.func in self.cache:
@@ -43,7 +46,7 @@ class memoize_method(object):
             self.cache = obj.cache
         #print self.cache
         return fn
-        
+
 class memoize_function(object):
     """Decorator that caches a function's return value each time it is called.
     If called later with the same arguments, the cached value is returned, and
@@ -75,16 +78,16 @@ if __name__ == "__main__":
     class MyClass(object):
         def __init__(self,data):
             self.data = data
-            
+
         def update(self,data):
             self.data = data
             self.cache = {}
-        
+
         @memoize_method
         def func1(self,x):
             print "Computing func1"
             return "I am func1 of %s. Data is %s. x is %s\n" % (self, self.data, x)
-         
+
         @memoize_method
         def func2(self,x):
             print "Computing func2"
@@ -97,27 +100,27 @@ if __name__ == "__main__":
     mc1 = MyClass("data1")
     mc2 = MyClass("data2")
     mc3 = MyClass("data3")
-    
-    print mc1.func1(1) 
-    print mc1.func1(1) 
-    print mc1.func2(1) 
-    print mc1.func2(1) 
-    print mc1.func3(1) 
-    print mc1.func3(1) 
-    
-    print mc2.func1(1) 
-    print mc2.func1(1) 
-    print mc2.func2(1) 
-    print mc2.func2(1) 
-    print mc2.func3(1) 
-    print mc2.func3(1) 
+
+    print mc1.func1(1)
+    print mc1.func1(1)
+    print mc1.func2(1)
+    print mc1.func2(1)
+    print mc1.func3(1)
+    print mc1.func3(1)
+
+    print mc2.func1(1)
+    print mc2.func1(1)
+    print mc2.func2(1)
+    print mc2.func2(1)
+    print mc2.func3(1)
+    print mc2.func3(1)
 
     print "Update mc1\n"
     mc1.update("data1new")
 
-    print mc1.func1(1) 
-    print mc1.func2(1) 
-    print mc1.func3(1) 
-    print mc2.func1(1) 
-    print mc2.func2(1) 
-    print mc2.func3(1) 
+    print mc1.func1(1)
+    print mc1.func2(1)
+    print mc1.func3(1)
+    print mc2.func1(1)
+    print mc2.func2(1)
+    print mc2.func3(1)

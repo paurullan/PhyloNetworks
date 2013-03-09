@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 """
 The phylonetwork is the main module of the project PhyloNetworks.
 
@@ -23,9 +26,8 @@ def eNewick_reader(filename,ignore_prefix=None):
         yield net
 
 
-    
+
 if __name__ == '__main__':
     net1=PhyloNetwork(eNewick='(1,2,3);')
     net2=PhyloNetwork(eNewick='(1,2)3;')
     print mu_distance(net1,net2)
-    

@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 class MalformedNewickException(Exception):
     """
     Raised when creating a new network from a malformed eNewick string.
