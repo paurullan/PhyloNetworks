@@ -23,7 +23,7 @@ def all_trees(taxa,binary=False,nested_taxa=True):
     If binary is True, then only binary trees will be generated; otherwise trees will
     have internal nodes with arbitrary out-degree.
 
-    EXAMPLE::
+    ::
 
         >>> generator = all_trees(['A', 'B', 'C'], binary=True)
         >>> generator.next().eNewick()
@@ -35,7 +35,7 @@ def all_trees(taxa,binary=False,nested_taxa=True):
         >>> tmp
         ... 21
 
-    EXAMPLE::
+    ::
 
         >>> for tree in all_trees(['A', 'B', 'C', binary=True, nested_taxa=False):
         >>>     print tree.eNewick()
@@ -43,7 +43,7 @@ def all_trees(taxa,binary=False,nested_taxa=True):
         ... (C,(B,A));
         ... ((C,A),B);
 
-    EXAMPLE::
+    ::
 
         >>> for tree in all_trees(['A', 'B', 'C', binary=False, nested_taxa=False):
         >>>     print tree.eNewick()
@@ -110,7 +110,7 @@ def random_tree_bin_nont_global(taxa, id_offset=0):
     """
     Returns a random binary tree without nested taxa.
 
-    EXAMPLE::
+    ::
 
         >>> network = random_tree_bin_nont_global(['A', 'B', 'C', 'D'])
         >>> network.nested_label(network.roots()[0])
@@ -175,7 +175,7 @@ def random_tree_nobin_nont_global(taxa,id_offset=0):
     """
     Returns a random tree without nested taxa.
 
-    EXAMPLE::
+    ::
 
         >>> network = random_tree_nobin_nont_global(['A', 'B', 'C', 'D'])
         >>> network.nested_label(network.roots()[0])
@@ -258,7 +258,7 @@ def random_tree_bin_nt_global(taxa,id_offset=0):
     """
     Returns a random binary tree with nested taxa.
 
-    EXAMPLE::
+    ::
 
         >>> network = random_tree_bin_nt_global(['A', 'B', 'C', 'D'])
         >>> network.eNewick()
@@ -344,7 +344,7 @@ def random_tree_nobin_nt_global(taxa,id_offset):
     """
     Returns a random tree with nested taxa.
 
-    EXAMPLE::
+    ::
 
         >>> network = random_tree_nobin_nt_global(['A', 'B', 'C', 'D'])
         >>> network.eNewick()
@@ -409,7 +409,7 @@ def random_tree_generator(taxa,binary=False,nested_taxa=True,yule=False,id_offse
     use the yule model. Remember that yule model is only valid for non-nested
     binary trees.
 
-    EXAMPLE::
+    ::
 
         >>> generator = random_tree_generator(['a', 'b', 'c', 'd', 'e', 'f'], binary=False)
         >>> for i in range(3):
@@ -418,7 +418,7 @@ def random_tree_generator(taxa,binary=False,nested_taxa=True,yule=False,id_offse
         ... (((((d)c)e)f,a))b;
         ... ((e,d,(c)a),b,f);
 
-    EXAMPLE::
+    ::
 
         >>> generator = random_tree_generator(['a', 'b', 'c', 'd', 'e', 'f'], binary=True)
         >>> for i in range(3):
@@ -427,7 +427,7 @@ def random_tree_generator(taxa,binary=False,nested_taxa=True,yule=False,id_offse
         ... '(c,(((a,e),d),f)b);'
         ... '(((c,f),((b)e)d))a;'
 
-    EXAMPLE::
+    ::
 
         >>> generator = random_tree_generator(['a', 'b', 'c', 'd', 'e', 'f'], yule=True)
         >>> for i in range(3):

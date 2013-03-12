@@ -71,7 +71,7 @@ class PhyloNetwork(DiGraph):
         """
         Returns True if the network is a Phylogenetic Network. False otherwise.
 
-        EXAMPLE::
+        ::
 
             >>> network = PhyloNetwork(eNewick="((1,2),(3,4)5);")
             >>> network.is_phylogenetic_network()
@@ -91,7 +91,7 @@ class PhyloNetwork(DiGraph):
         """
         Set a new label to a node.
 
-        EXAMPLE::
+        ::
 
             >>> graph = networkx.DiGraph()
             >>> graph.add_nodes_from(range(5))
@@ -120,7 +120,7 @@ class PhyloNetwork(DiGraph):
         """
         Returns the taxa (set of labels) of self.
 
-        EXAMPLE::
+        ::
 
             >>> network = PhyloNetwork(eNewick="((1,2),(3,4)5);")
             >>> network.taxa()
@@ -141,7 +141,7 @@ class PhyloNetwork(DiGraph):
         """
         Returns the label of node, or None if not labelled.
 
-        EXAMPLE::
+        ::
 
             >>> network = PhyloNetwork(eNewick="((1,2),(3,4)5);")
             >>> network.taxa()
@@ -165,7 +165,7 @@ class PhyloNetwork(DiGraph):
         Important: If more than one node is labelled with taxa, only the first one will be displayed.
         In order to get all nodes with a fixed label, use nodes_by_taxa.
 
-        EXAMPLE::
+        ::
 
             >>> network = PhyloNetwork(eNewick="((1,2),(3,4)1);")
             >>> network.taxa()
@@ -190,7 +190,7 @@ class PhyloNetwork(DiGraph):
         """
         Returns all nodes labelled with taxa.
 
-        EXAMPLE::
+        ::
 
             >>> network = PhyloNetwork(eNewick="((1,2),(3,4)1);")
             >>> network.taxa()
@@ -219,7 +219,7 @@ class PhyloNetwork(DiGraph):
         """
         Returns True if u is a tree node, False otherwise.
 
-        EXAMPLE::
+        ::
 
             >>> network = PhyloNetwork(eNewick="((3),(1,2));")
             >>> network.nodes()
@@ -241,7 +241,7 @@ class PhyloNetwork(DiGraph):
         """
         Returns True if u is not a tree node, False otherwise.
 
-        EXAMPLE::
+        ::
 
             >>> network = PhyloNetwork(eNewick="((3),(1,2));")
             >>> network.nodes()
@@ -263,7 +263,7 @@ class PhyloNetwork(DiGraph):
         """
         Returns True if u is a leaf, False otherwise.
 
-        EXAMPLE::
+        ::
 
             >>> network = PhyloNetwork(eNewick="((3),(1,2));")
             >>> network.nodes()
@@ -284,7 +284,7 @@ class PhyloNetwork(DiGraph):
         """
         Returns True if u is a root, False otherwise.
 
-        EXAMPLE::
+        ::
 
             >>> network = PhyloNetwork(eNewick="((3),(1,2));")
             >>> network.nodes()
@@ -303,7 +303,7 @@ class PhyloNetwork(DiGraph):
         """
         Returns True if u is an elementary node, False otherwise.
 
-        EXAMPLE::
+        ::
 
             >>> network = PhyloNetwork(eNewick="((1)E,2);")
             >>> network.nodes()
@@ -323,7 +323,7 @@ class PhyloNetwork(DiGraph):
         """
         Returns True if u is a labelled node, False otherwise.
 
-        EXAMPLE::
+        ::
 
             >>> network = PhyloNetwork(eNewick="((3),(1,2))4;")
             >>> network.nodes()
@@ -341,7 +341,7 @@ class PhyloNetwork(DiGraph):
         """
         Returns the set of leaves of self.
 
-        EXAMPLE::
+        ::
 
             >>> network = PhyloNetwork(eNewick="((3),(1,(5,6)2))4;")
             >>> network.nodes()
@@ -361,7 +361,7 @@ class PhyloNetwork(DiGraph):
         """
         Returns the set of roots of self.
 
-        EXAMPLE::
+        ::
 
             >>> network = PhyloNetwork(eNewick="(1,2,3)ROOT;")
             >>> network.nodes()
@@ -371,7 +371,7 @@ class PhyloNetwork(DiGraph):
             >>> network.label('_1')
             ... 'ROOT'
 
-        EXAMPLE::
+        ::
 
 	    >>> graph = networkx.DiGraph()
 	    >>> graph.add_nodes_from(range(5))
@@ -394,7 +394,7 @@ class PhyloNetwork(DiGraph):
         """
         Returns the set of labelled nodes.
 
-        EXAMPLE::
+        ::
 
            >>> network = PhyloNetwork(eNewick="((A,B,C),1);")
            >>> network.nodes()
@@ -416,7 +416,7 @@ class PhyloNetwork(DiGraph):
         """
         Returns the set of unlabelled nodes.
 
-        EXAMPLE::
+        ::
 
            >>> network = PhyloNetwork(eNewick="((A,B,C),1);")
            >>> network.nodes()
@@ -438,7 +438,7 @@ class PhyloNetwork(DiGraph):
         """
         Returns the set of non-leaf nodes.
 
-        EXAMPLE::
+        ::
 
             >>> network = PhyloNetwork(eNewick="((1,2),(3,4));")
             >>> network.nodes()
@@ -456,7 +456,7 @@ class PhyloNetwork(DiGraph):
         """
         Return the set of elementary nodes.
 
-        EXAMPLE::
+        ::
 
             >>> network = PhyloNetwork(eNewick="((1)E,2);")
             >>> network.nodes()
@@ -477,7 +477,7 @@ class PhyloNetwork(DiGraph):
         Returns the depth of u. If the node u is not from the
         phylogenetic network, then returns None.
 
-        EXAMPLE::
+        ::
 
             >>> network = PhyloNetwork(eNewick="((((LEAF#1))),#1);")
             >>> network.nodes()
@@ -498,7 +498,7 @@ class PhyloNetwork(DiGraph):
         Returns the height of u. If the node u is not from the
         phylogenetic network, then returns None.
 
-        EXAMPLE::
+        ::
 
             >>> network = PhyloNetwork(eNewick="((((LEAF#1))),#1);")
             >>> network.nodes()
@@ -523,7 +523,7 @@ class PhyloNetwork(DiGraph):
         labelled nodes of the phylogenetic network.
         Returns None if the node u is not in the phylogenetic network.
 
-        EXAMPLE::
+        ::
 
             >>> network = PhyloNetwork(eNewick="((((LEAF1, LEAF2#1)), #1)INT,#1);")
             >>> network.taxa()
@@ -556,7 +556,7 @@ class PhyloNetwork(DiGraph):
         """
         Returns a string representing the mu value of all nodes, with the same order as sorted_nodes()
 
-        EXAMPLE::
+        ::
 
             >>> network = PhyloNetwork(eNewick="((((LEAF1, LEAF2#1)), #1)INT,#1);")
             >>> network.taxa()
@@ -578,7 +578,7 @@ class PhyloNetwork(DiGraph):
         """
         Returns the set of nodes sorted with the total order over their mu value.
 
-        EXAMPLE::
+        ::
 
             >>> network = PhyloNetwork(eNewick="((((LEAF1, LEAF2#1)), #1)INT,#1);")
             >>> network.taxa()
@@ -672,7 +672,7 @@ class PhyloNetwork(DiGraph):
         """
         Returns a set with all the descendents of u.
 
-        EXAMPLE::
+        ::
 
             >>> network = PhyloNetwork(eNewick="((,(3,4)#1)2,#1)1;")
             >>> network.nodes()
@@ -695,7 +695,7 @@ class PhyloNetwork(DiGraph):
         """
         Returns a set with all the labelled descendents of u.
 
-        EXAMPLE::
+        ::
 
             >>> network = PhyloNetwork(eNewick="((,(3,4)#1)2,#1)1;")
             >>> network.nodes()
@@ -717,7 +717,7 @@ class PhyloNetwork(DiGraph):
         """
         Returns a set with all the strict descendents of u.
 
-        EXAMPLE::
+        ::
 
             >>> network = PhyloNetwork(eNewick="((,(3,4)#1)2,#1)1;")
             >>> network.nodes()
@@ -745,7 +745,7 @@ class PhyloNetwork(DiGraph):
         """
         Returns a set with all the strict labelled descendents of u.
 
-        EXAMPLE::
+        ::
 
             >>> network = PhyloNetwork(eNewick="((,(3,4)#1)2,#1)1;")
             >>> network.nodes()
@@ -765,7 +765,7 @@ class PhyloNetwork(DiGraph):
         """
         Returns a set with all nodes that have a fixed descendant taxa.
 
-        EXAMPLE::
+        ::
 
             >>> network = PhyloNetwork(eNewick="((3,4)1,(5,6,7)2);")
             >>> network.ancestors('3')
@@ -782,7 +782,7 @@ class PhyloNetwork(DiGraph):
         """
         Returns a set with all nodes that have a fixed strict descendant taxa.
 
-        EXAMPLE::
+        ::
 
             >>> network = PhyloNetwork(eNewick=((,(3,4)#1)2,#1)1;)
             >>> network.node_by_taxa('2')
@@ -800,7 +800,7 @@ class PhyloNetwork(DiGraph):
         """
         Returns a set with the common strict ancestors of taxa1 and taxa2.
 
-        EXAMPLE::
+        ::
 
             >>> network = PhyloNetwork(eNewick=((,(3,4)#1)2,#1)1;)
             >>> network.CSA('3', '4')
@@ -808,7 +808,7 @@ class PhyloNetwork(DiGraph):
             >>> network.LCSA('3', '4')
             ... '#1'
 
-        EXAMPLE::
+        ::
 
             >>> network = PhyloNetwork(eNewick="(((1)), 2);")
             >>> network.CSA('1', '2')
@@ -828,7 +828,7 @@ class PhyloNetwork(DiGraph):
         """
         Returns a minimum of CSA(taxa1, taxa2) respect the height of nodes.
 
-        EXAMPLE::
+        ::
 
             >>> network = PhyloNetwork(eNewick=((,(3,4)#1)2,#1)1;)
             >>> network.CSA('3', '4')
@@ -836,7 +836,7 @@ class PhyloNetwork(DiGraph):
             >>> network.LCSA('3', '4')
             ... '#1'
 
-        EXAMPLE::
+        ::
 
             >>> network = PhyloNetwork(eNewick="(((1)), 2);")
             >>> network.CSA('1', '2')
@@ -855,7 +855,7 @@ class PhyloNetwork(DiGraph):
         """
         Returns a matrix containing the nodal 'distance' between all labelled nodes.
 
-        EXAMPLES::
+        ::
 
             >>> network = PhyloNetwork(eNewick="(((1,2), 3), 4);")
             >>> network.nodal_matrix()
@@ -881,7 +881,7 @@ class PhyloNetwork(DiGraph):
         """
         Returns the sum of all elements of the nodal matrix.
 
-        EXAMPLES::
+        ::
 
             >>> network = PhyloNetwork(eNewick="(((1,2), 3), 4);")
             >>> network.nodal_matrix()
@@ -902,7 +902,7 @@ class PhyloNetwork(DiGraph):
         """
         Returns a matrix with the cophenetic coeficient of labelled nodes.
 
-        EXAMPLE::
+        ::
 
             >>> network = PhyloNetwork(eNewick="(((1,2), 3), 4);")
             >>> network.cophenetic_matrix()
@@ -926,7 +926,7 @@ class PhyloNetwork(DiGraph):
         """
         Returns common taxa between self and net2.
 
-        EXAMPLE::
+        ::
 
             >>> network = PhyloNetwork(eNewick="((1,2), 3)4;")
             >>> network2 = PhyloNewtwork(eNewick="(1,(4,5)2);")
@@ -949,7 +949,7 @@ class PhyloNetwork(DiGraph):
         """
         Returns common taxa between self and net2 that are leaves on both networks.
 
-        EXAMPLE::
+        ::
 
             >>> network = PhyloNetwork(eNewick="((1,2), 3)4;")
             >>> network2 = PhyloNewtwork(eNewick="(1,(4,5)2);")
@@ -974,7 +974,7 @@ class PhyloNetwork(DiGraph):
         Returns a minimal subnetwork of self such that it containts a fixed subtaxa.
         If nested=False then only taxa on leaves will be considered.
 
-        EXAMPLE::
+        ::
 
             >>> network = PhyloNetwork(eNewick="((1,2), (3,4));")
             >>> network.taxa()
@@ -1103,7 +1103,7 @@ class PhyloNetwork(DiGraph):
         """
         Returns a string representation of descendants of u. Very useful to identify where is a node located in the network.
 
-        EXAMPLE::
+        ::
 
             >>> network = PhyloNetwork(eNewick="((2,3), (4,(5,6)))1;")
             >>> network.nodes()
@@ -1139,7 +1139,7 @@ class PhyloNetwork(DiGraph):
         is True, then the result is returned as a Counter object; otherwise as a set
         object.
 
-        EXAMPLE::
+        ::
 
             >>> network = PhyloNetwork(eNewick="((1,2), (3,4));")
             >>> network.nodes()
@@ -1330,7 +1330,7 @@ class PhyloTree(PhyloNetwork):
         """
         Returns the minimum of CSA(taxa1, taxa2) respect the height of nodes.
 
-        EXAMPLE::
+        ::
 
             >>> network = PhyloTree(eNewick="(((1)), 2);")
             >>> network.CSA('1', '2')
@@ -1351,7 +1351,7 @@ class PhyloTree(PhyloNetwork):
         """
         Returns a matrix containing the nodal 'distance' between all labelled nodes.
 
-        EXAMPLES::
+        ::
 
             >>> network = PhyloTree(eNewick="(((1,2), 3), 4);")
             >>> network.nodal_matrix()
