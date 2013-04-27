@@ -8,3 +8,5 @@ scripts
 dist/
 PhyloNetwork.egg-info/
 .pydevproject
+
+.noseids
