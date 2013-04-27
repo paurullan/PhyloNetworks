@@ -16,6 +16,7 @@ from .permutations import *
 from .eNewick import *
 from .generators import *
 from .exceptions import *
+from .utils import *
 
 def eNewick_reader(filename,ignore_prefix=None):
     f = open(filename,'r')

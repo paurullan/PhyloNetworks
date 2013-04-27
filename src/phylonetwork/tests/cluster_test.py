@@ -7,12 +7,10 @@ import unittest
 
 import networkx as nx
 
-from ..cluster_networks import construct, network
-from ..cluster_networks import is_treechild
-from ..cluster_networks import hybrid_nodes
-from ..cluster_networks import clean_graph
-from ..cluster_networks import check_cluster
+from ..utils import construct, network
+from ..utils import check_cluster
 
+from ..classes import PhyloNetwork
 from ..hasse import Hasse
 
 class TestCleanTree(unittest.TestCase):
@@ -22,24 +20,24 @@ class TestCleanTree(unittest.TestCase):
         self.assertTrue(GM.is_isomorphic())
 
     def test_empty(self):
-        G = nx.DiGraph()
-        gold = nx.DiGraph()
-        self.assertGraphEqual(clean_graph(G), gold)
+        G = PhyloNetwork()
+        gold = PhyloNetwork()
+        self.assertGraphEqual(G.clean_graph(), gold)
         self.assertEqual(G.edges(), gold.edges())
 
     def test_one(self):
-        G = nx.DiGraph()
+        G = PhyloNetwork()
         G.add_node(1)
-        clean = clean_graph(G)
+        clean = G.clean_graph()
         gold = {1}
         self.assertItemsEqual(clean.nodes(), gold)
 
     def test_complex(self):
-        G = nx.DiGraph()
+        G = PhyloNetwork()
         G.add_edges_from([(1, 2), (2, 3)])
-        gold = nx.DiGraph()
+        gold = PhyloNetwork()
         gold.add_edges_from([(1, 3)])
-        clean = clean_graph(G)
+        clean = G.clean_graph()
         self.assertEqual(clean.edges(), gold.edges())
 
 class TestGraphCreation(unittest.TestCase):
@@ -83,27 +81,27 @@ class TestHybridNodes(unittest.TestCase):
     def test_empty(self):
         clusters = [[]]
         G = construct(clusters)
-        self.assertItemsEqual(hybrid_nodes(G), [])
+        self.assertItemsEqual(G.hybrid_nodes(), [])
 
     def test_none(self):
         clusters = [(1, 2), (3, 4)]
         G = construct(clusters)
-        self.assertItemsEqual(hybrid_nodes(G), [])
+        self.assertItemsEqual(G.hybrid_nodes(), [])
 
     def test_one(self):
         clusters = [(1, 2), (1, 3)]
         G = construct(clusters)
-        self.assertItemsEqual(hybrid_nodes(G), [('1h', ),])
+        self.assertItemsEqual(G.hybrid_nodes(), [('1h', ),])
 
     def test_two(self):
         clusters = [(1, 2), (1, 3), (2, 3)]
         G = construct(clusters)
-        self.assertItemsEqual(hybrid_nodes(G), [('1h',), ('2h',), ('3h',)])
+        self.assertItemsEqual(G.hybrid_nodes(), [('1h',), ('2h',), ('3h',)])
 
     def test_three(self):
         clusters = [(1, 2), (2, 3), (3, 4)]
         G = construct(clusters)
-        self.assertItemsEqual(hybrid_nodes(G), [('2h',), ('3h',)])
+        self.assertItemsEqual(G.hybrid_nodes(), [('2h',), ('3h',)])
 
 
 class TestTreeChild(unittest.TestCase):
@@ -113,17 +111,17 @@ class TestTreeChild(unittest.TestCase):
         "The fact to have hybrids does not mean you can't be tree-child"
         clusters = [(1, 2), (1, 3)]
         G = construct(clusters)
-        self.assertTrue(is_treechild(G))
+        self.assertTrue(G.is_treechild())
 
     def test_complex_false(self):
         clusters = [(1, 2), (1, 3), (2, 3)]
         G = construct(clusters)
-        self.assertFalse(is_treechild(G))
+        self.assertFalse(G.is_treechild())
 
     def test_true(self):
         clusters = [(1, 2), (3, 4)]
         G = construct(clusters)
-        self.assertTrue(is_treechild(G))
+        self.assertTrue(G.is_treechild())
 
 
 class TestCheckCluster(unittest.TestCase):
@@ -141,27 +139,27 @@ class TestCalcHybrid(unittest.TestCase):
 
     def test_empty(self):
         clusters = []
-        result = hybrid_nodes(construct(clusters))
+        result = construct(clusters).hybrid_nodes()
         gold = []
         self.assertItemsEqual(result, gold)
 
     def test_one(self):
         clusters = [(1, 2), (3, 5), (3, 4, 5) ]
-        result = hybrid_nodes(construct(clusters))
+        result = construct(clusters).hybrid_nodes()
         gold = []
         self.assertItemsEqual(result, gold)
 
     def test_two(self):
         clusters = [(1, 2), (2, 3), (3, 5), (3, 4, 5) ]
-        result = hybrid_nodes(construct(clusters))
+        result = construct(clusters).hybrid_nodes()
         gold = [('2h',), ('3h', )]
         self.assertItemsEqual(result, gold)
 
     def test_three(self):
-        cluster = [(6, 8), (4, 7), (2, 6), (7, 10), (6, 10), (2, 3, 7,
+        clusters = [(6, 8), (4, 7), (2, 6), (7, 10), (6, 10), (2, 3, 7,
         9, 10), (1, 4, 7, 9, 10), (1,), (2,), (3,), (4,), (5,), (6,),
         (7,), (8,), (9,), (10,)]
-        result = hybrid_nodes(construct(cluster))
+        result = construct(clusters).hybrid_nodes()
         gold = [('2h',), ('10h',), ('7h',), ('9h',), ('6h',),
                 ('(7, 10)h',)]
         self.assertItemsEqual(result, gold)
@@ -199,33 +197,33 @@ class TestCleanGraph(unittest.TestCase):
 
     def test_empty(self):
         edges = []
-        G = nx.DiGraph()
+        G = PhyloNetwork()
         G.add_edges_from(edges)
-        result = clean_graph(G)
+        result = G.clean_graph()
         gold = []
         self.assertItemsEqual(result, gold)
 
     def test_direct(self):
         edges = [(1, 2),]
-        G = nx.DiGraph()
+        G = PhyloNetwork()
         G.add_edges_from(edges)
-        result = clean_graph(G)
+        result = G.clean_graph()
         gold = [1, 2]
         self.assertItemsEqual(result, gold)
 
     def test_one_goes(self):
         edges = [(1, 2), (2, 3)]
-        G = nx.DiGraph()
+        G = PhyloNetwork()
         G.add_edges_from(edges)
-        result = clean_graph(G)
+        result = G.clean_graph()
         gold = [1, 3]
         self.assertItemsEqual(result, gold)
 
     def test_two_go(self):
         edges = [(1, 2), (2, 3), (3, 4)]
-        G = nx.DiGraph()
+        G = PhyloNetwork()
         G.add_edges_from(edges)
-        result = clean_graph(G)
+        result = G.clean_graph()
         gold = [1, 4]
         self.assertItemsEqual(result, gold)
 

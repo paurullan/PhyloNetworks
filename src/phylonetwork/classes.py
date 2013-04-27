@@ -22,7 +22,10 @@ from .exceptions import MalformedNewickException
 from itertools import combinations
 from collections import Counter
 
-class PhyloNetwork(DiGraph):
+from cluster_networks import ClusterNetworkMixin
+
+
+class PhyloNetwork(ClusterNetworkMixin, DiGraph):
     """
     Main class for phylogenetic networks and trees (with or without nested taxa).
 
@@ -56,9 +59,9 @@ class PhyloNetwork(DiGraph):
 
     """
 
-    def __init__(self, data=None, name='', eNewick=None, ignore_prefix=None, id_offset=0):
-        # initialization here
-        DiGraph.__init__(self,data)
+    def __init__(self, data=None, name='', eNewick=None,
+                 ignore_prefix=None, id_offset=0, *args, **kwargs):
+        super(PhyloNetwork, self).__init__(data=data, *args, **kwargs)
         self.name=name
         self._labels={}
         self._lastlabel=id_offset
@@ -161,8 +164,11 @@ class PhyloNetwork(DiGraph):
     @memoize_method
     def node_by_taxa(self, taxa):
         """
-        Returns the node labelled by taxa or None if no node is labelled by taxa.
-        Important: If more than one node is labelled with taxa, only the first one will be displayed.
+
+        Returns the node labelled by taxa or None if no node is labelled by
+        taxa. Important: If more than one node is labelled with taxa, only the
+        first one will be displayed.
+
         In order to get all nodes with a fixed label, use nodes_by_taxa.
 
         ::
@@ -607,8 +613,6 @@ class PhyloNetwork(DiGraph):
             self._lastlabel = 1
         return '_%d' % (self._lastlabel)
 
-    #getlabel = _generate_new_id # DEPRECATED
-
     def _walk(self,parsed,ignore_prefix=None):
         if isinstance(parsed, pyparsing.ParseResults):
 
@@ -663,6 +667,7 @@ class PhyloNetwork(DiGraph):
 
         visited=[]
         string = ''
+        # TODO: examinar per que això no és un preordre
         for root in self.roots():
             string += self._eNewick_node(root,visited)+';'
         return string
@@ -929,7 +934,7 @@ class PhyloNetwork(DiGraph):
         ::
 
             >>> network = PhyloNetwork(eNewick="((1,2), 3)4;")
-            >>> network2 = PhyloNewtwork(eNewick="(1,(4,5)2);")
+            >>> network2 = PhyloNetwork(eNewick="(1,(4,5)2);")
             >>> network.common_taxa(network2)
             ... ['1', '2', '4']
             >>> network.common_taxa_leaves(network2)
@@ -952,7 +957,7 @@ class PhyloNetwork(DiGraph):
         ::
 
             >>> network = PhyloNetwork(eNewick="((1,2), 3)4;")
-            >>> network2 = PhyloNewtwork(eNewick="(1,(4,5)2);")
+            >>> network2 = PhyloNetwork(eNewick="(1,(4,5)2);")
             >>> network.common_taxa(network2)
             ... ['1', '2', '4']
             >>> network.common_taxa_leaves(network2)
@@ -1101,7 +1106,8 @@ class PhyloNetwork(DiGraph):
 
     def nested_label(self,node):
         """
-        Returns a string representation of descendants of u. Very useful to identify where is a node located in the network.
+        Returns a string representation of descendants of u.
+        Very useful to identify where is a node located in the network.
 
         ::
 
@@ -1168,6 +1174,7 @@ def _get_chunck(string):
         i += 1
     return string[0:i],string[i:]
 
+
 class PhyloTree(PhyloNetwork):
 
     def _from_eNewick(self,string,ignore_prefix=None):
@@ -1212,45 +1219,6 @@ class PhyloTree(PhyloNetwork):
                         length_value = float(length)
                     parent = self.predecessors(current)[0]
                     self.edge[parent][current]['length'] = length_value
-
-
-
-#    @memoize_method
-#    def cluster(self,u):
-#        if self.is_leaf(u):
-#            return set([self.label(u)])
-#        cl = set()
-#        for v in self.successors(u):
-#            cl = cl | self.cluster(v)
-#        return cl
-#
-#    @memoize_method
-#    def depth(self,u):
-#        if self.is_root(u):
-#            return 0
-#        return 1+self.depth(self.predecessors(u)[0])
-
-#    @memoize_method
-#    def nodal_matrix(self):
-#        taxa = self.taxa()
-#        n = len(taxa)
-#        taxa_map = {taxa[i]:i for i in range(n)}
-#        matrix=numpy.zeros((n,n),int)
-#        for u in self.interior_nodes():
-#            descendant_clusters = [self.cluster(v) for v in self.successors(u)]
-#            pairs = combinations(descendant_clusters,2)
-#            for pair in pairs:
-#                cl1 = pair[0]
-#                cl2 = pair[1]
-#                for taxa_i in cl1:
-#                    for taxa_j in cl2:
-#                        i = taxa_map[taxa_i]
-#                        j = taxa_map[taxa_j]
-#                        li = self.depth(self.node_by_taxa(taxa_i)) - self.depth(u)
-#                        lj = self.depth(self.node_by_taxa(taxa_j)) - self.depth(u)
-#                        matrix[i,j] = li
-#                        matrix[j,i] = lj
-#        return matrix
 
     @memoize_method
     def cophenetic_matrix(self):
@@ -1371,6 +1339,7 @@ class PhyloTree(PhyloNetwork):
                 matrix[i,j]=self.depth(self.node_by_taxa(ti))-self.depth(lca)
                 matrix[j,i]=self.depth(self.node_by_taxa(tj))-self.depth(lca)
         return matrix
+
 
 class LGTPhyloNetwork(PhyloNetwork):
 

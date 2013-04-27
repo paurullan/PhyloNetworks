@@ -22,7 +22,7 @@ def Hasse(clusters):
         for clr in cluster_dict[levels]:
             for level in range(levels+1, level_max+1):
                 level_clusters = cluster_dict[level]
-                [check_in(clr, x, results) for x in level_clusters]
+                [_check_in(clr, x, results) for x in level_clusters]
     return results
 
 
@@ -50,7 +50,7 @@ def _construct_hasse(clusters):
     return cluster_dict, level_max
 
 
-def check_in(a, b, results):
+def _check_in(a, b, results):
     a, b = set(a), set(b)
     if not a.issubset(b):
         return False
