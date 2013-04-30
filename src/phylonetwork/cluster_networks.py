@@ -150,3 +150,53 @@ class ClusterNetworkMixin(object):
                 g = g.clean_graph()
                 results.update(g.soft_cluster(results))
         return results
+
+    def make_web_ready(self):
+        for node in self.nodes_iter():
+            self.node[node]['label'] =  ", ".join(map(str, node))
+        for node in self.get_non_leaf_nodes():
+            self.node[node]['color'] = "black"
+        for node in self.get_leaf_nodes():
+            self.node[node]['color'] = "blue"
+        for node in self.hybrid_nodes():
+            self.node[node]['color'] = "green"
+        for node in self.get_root_nodes():
+            self.node[node]['color'] = "red"
+
+    def get_removable_edges(self):
+        edges = []
+        for node in self.hybrid_nodes():
+            for edge in self.input(node):  # edges in
+                if self.remove_edge(edge):
+                    edges.append(edge)
+                    break
+
+
+    def can_remove_edge(self, edge):
+        """
+        Calculate the possibility of removing this edge while keeping
+        the graph with the same soft_cluster output.
+        """
+        pass
+        nodes = un_node_amb_tots_els_fill_hibrids(G)
+        node = nodes[0]
+        pares = self.predecessors(node)
+        pares_arbres = [te_un_full_arbre(pare) for pare in pares]
+        pare_minim = min(pares_arbres, key=altura)
+        u = node
+        v = pare_minim
+        # anàlisi de si podem llevar aresta
+        ws = self.LCSA(u, v)
+        for w in ws:
+            intermitjos = w - u - v
+            for ui in intermitjos_esquerra:  # camí de w → u
+                if not antecessor_estricte(node=ui, origen=v, desti=u):
+                    # return False ?
+                    break
+            for vi in intermitjos_dreta:  # camí de w → v
+                if not antecessor_estricte(node=ui, origen=v, desti=u):
+                    # return False ?
+                    break
+        else:
+            return False
+        return True

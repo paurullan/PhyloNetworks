@@ -789,7 +789,7 @@ class PhyloNetwork(ClusterNetworkMixin, DiGraph):
 
         ::
 
-            >>> network = PhyloNetwork(eNewick=((,(3,4)#1)2,#1)1;)
+            >>> network = PhyloNetwork(eNewick='((,(3,4)#1)2,#1)1;')
             >>> network.node_by_taxa('2')
             ... '_2'
             >>> '_2' in network.ancestors('3')
@@ -807,7 +807,7 @@ class PhyloNetwork(ClusterNetworkMixin, DiGraph):
 
         ::
 
-            >>> network = PhyloNetwork(eNewick=((,(3,4)#1)2,#1)1;)
+            >>> network = PhyloNetwork(eNewick=("(,(3,4)#1)2,#1)1;")
             >>> network.CSA('3', '4')
             ... ['#1', '_1']
             >>> network.LCSA('3', '4')
@@ -835,7 +835,7 @@ class PhyloNetwork(ClusterNetworkMixin, DiGraph):
 
         ::
 
-            >>> network = PhyloNetwork(eNewick=((,(3,4)#1)2,#1)1;)
+            >>> network = PhyloNetwork(eNewick=("(,(3,4)#1)2,#1)1;")
             >>> network.CSA('3', '4')
             ... ['#1', '_1']
             >>> network.LCSA('3', '4')
@@ -850,8 +850,7 @@ class PhyloNetwork(ClusterNetworkMixin, DiGraph):
             ... '_2'
 
         """
-        csa=self.CSA(tax1,tax2)
-        #print self,tax1,tax2,csa
+        csa = self.CSA(tax1,tax2)
         csa.sort(lambda x,y:cmp(self.height(x),self.height(y)))
         return csa[0]
 
